@@ -4,7 +4,6 @@ const uuid = require('uuid');
 
 const { DataTypes } = require('sequelize');
 const User = require('../user');
-const Category = require('../category');
 
 const Object = db.define('Object', {
     id: {
@@ -22,6 +21,16 @@ const Object = db.define('Object', {
         allowNull: false,
     },
 
+    location_of_loss: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
+    date_of_loss: {
+        type: DataTypes.DATEONLY,
+        allowNull: false
+    },
+
     createBy: {
         type: DataTypes.STRING,
         references: {
@@ -31,11 +40,14 @@ const Object = db.define('Object', {
     },
 
     category: {
-        type: DataTypes.STRING,
-        references: {
-            model: Category,
-            key: 'id'
-        }
+        type: DataTypes.ENUM(
+            'Eletrônico',
+            'Documento',
+            'Acessório',
+            'Roupas',
+            'Outro'
+        ),
+        allowNull: false
     }
 
 });
@@ -45,7 +57,7 @@ Object.beforeCreate(object => {
     object.id = hashed_id;
 });
 
-// Relacionamentos
+// Relacionamentos (1-N)
 
 User.hasMany(Object, {
     foreignKey: 'createBy',
@@ -53,12 +65,5 @@ User.hasMany(Object, {
 });
 
 Object.belongsTo(User, {foreignKey: 'createBy'});
-
-Category.hasMany(Object, {
-    foreignKey: 'category',
-    onDelete: 'SET NULL'
-});
-
-Object.belongsTo(Category, {foreignKey: 'category'});
 
 module.exports = Object;

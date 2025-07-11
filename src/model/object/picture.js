@@ -17,12 +17,16 @@ const Picture = db.define('Picture', {
     },
 });
 
+// antes de criar uma imagem vai gerar um id único
 Picture.beforeCreate(picture => {
     const hashed_id = uuid.v4();
     picture.id = hashed_id;
 });
 
+// um objeto pode ter varias imagens
 Object.hasMany(Picture, { onDelete: 'cascade' });
+
+// e uma imagem pertence a um objeto
 Picture.belongsTo(Object);
 
 module.exports = Picture;

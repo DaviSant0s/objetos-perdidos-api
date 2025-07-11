@@ -14,9 +14,9 @@ const validateDescription = (description) => {
     return null
 }
 
-const validateCategory = (category) => {
+const validateLocation_of_loss = (location_of_loss) => {
 
-    if(validator.isEmpty(category)) return "Category is required";
+    if(validator.isEmpty(location_of_loss)) return "Location of loss is required";
 
     return null;
 
@@ -25,5 +25,5 @@ const validateCategory = (category) => {
 module.exports = {
     validateName,
     validateDescription,
-    validateCategory,
+    validateLocation_of_loss,
 }

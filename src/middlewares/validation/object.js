@@ -1,13 +1,13 @@
 const {
     validateName,
     validateDescription,
-    validateCategory,
+    validateLocation_of_loss,
 } = require('../../validators/object');
 
 
 const validateCreateObject = (req, res, next) => {
 
-    const { name, description, category } = req.body;
+    const { name, description, location_of_loss, date_of_loss } = req.body;
     
     const objectErrorMessage = (message) => {
         return {
@@ -19,7 +19,7 @@ const validateCreateObject = (req, res, next) => {
     const errors = [
         validateName(name),
         validateDescription(description),
-        validateCategory(category)
+        validateLocation_of_loss(location_of_loss)
     ].filter(Boolean);
 
     if (errors.length > 0){

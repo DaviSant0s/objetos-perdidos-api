@@ -53,13 +53,7 @@ const User = db.define('User', {
     contactNumber: {
         type: DataTypes.STRING
     },
-
-    refreshToken: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        unique: true,
-    }
-
+    
 });
 
 // Antes de criar: criptografa a senha e cria um codigo único para o id

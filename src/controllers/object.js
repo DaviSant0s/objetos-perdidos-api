@@ -1,10 +1,9 @@
 const Object = require('../model/object/object');
 const Picture = require('../model/object/picture');
-const Category = require('../model/category');
 
 const createObject = async (req, res) => {
 
-    const { name, description, category } = req.body;
+    const { name, description, category, location_of_loss } = req.body;
     const createBy = req.user.id;
 
     const objectPictures = req.files.map(file => ({img: file.filename}));
@@ -13,6 +12,8 @@ const createObject = async (req, res) => {
         name,
         description,
         category,
+        location_of_loss,
+        //date_of_loss
         createBy
     }
 
@@ -33,27 +34,19 @@ const createObject = async (req, res) => {
 
         const object_res = await Object.findByPk(object.id, {
 
-            attributes: [ 'id', 'name', 'slug', 'price', 'quantity', 'description', 'offer', 'category'],
+            attributes: [ 'id', 'name', 'description', 'location_of_loss', 'date_of_loss', 'category'],
 
             include: [
                 {
                   model: Picture,
                   attributes: [ 'id', 'img']
                 },
-                {
-                  model: Review
-                },
-                {
-                  model: Category,
-                  attributes: [ 'id', 'name']
-                }
-              ]
+            ]
         });
 
         if(!object_res) throw new Error();
 
         return res.status(201).json({
-            //object: object.toJSON(), 
             object: object_res,
             objectPictures: pictures
         });

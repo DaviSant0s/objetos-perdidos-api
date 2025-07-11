@@ -12,14 +12,12 @@ const conn = require('./database/conn');
 
 const authenticateRoutes = require('./routes/authenticate');
 const adminRoutes = require('./routes/admin/authenticate');
-const categoryRoutes = require('./routes/category');
 const objectRoutes = require('./routes/object');
 const initialData = require('./routes/admin/initialData');
 
 app.use(cors());
 app.use('/api', adminRoutes);
 app.use('/api', authenticateRoutes);
-app.use('/api', categoryRoutes);
 app.use('/api', objectRoutes);
 app.use('/api', initialData);
 
