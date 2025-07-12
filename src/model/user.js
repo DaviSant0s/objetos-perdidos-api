@@ -44,12 +44,6 @@ const User = db.define('User', {
         }
     },
 
-    role: {
-        type: DataTypes.ENUM, 
-        values: ['user', 'admin'],
-        defaultValue: 'user'
-    },
-
     contactNumber: {
         type: DataTypes.STRING
     },

@@ -11,23 +11,21 @@ const { PORT } = require('./configs/env');
 const conn = require('./database/conn');
 
 const authenticateRoutes = require('./routes/authenticate');
-const adminRoutes = require('./routes/admin/authenticate');
 const objectRoutes = require('./routes/object');
-const initialData = require('./routes/admin/initialData');
+const initialData = require('./routes/initialData');
 
 app.use(cors());
-app.use('/api', adminRoutes);
 app.use('/api', authenticateRoutes);
 app.use('/api', objectRoutes);
 app.use('/api', initialData);
 
-conn.sync()
-.then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
+conn
+  .sync()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
   });
-
-})
-.catch(err => {
-  console.log(err);
-});

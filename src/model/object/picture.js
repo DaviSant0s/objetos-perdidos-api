@@ -15,6 +15,15 @@ const Picture = db.define('Picture', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+
+    objectId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: Object,
+            key: 'id'
+        }
+    },
 });
 
 // antes de criar uma imagem vai gerar um id único
@@ -24,9 +33,9 @@ Picture.beforeCreate(picture => {
 });
 
 // um objeto pode ter varias imagens
-Object.hasMany(Picture, { onDelete: 'cascade' });
+Object.hasMany(Picture, { onDelete: 'cascade', foreignKey: 'objectId', });
 
 // e uma imagem pertence a um objeto
-Picture.belongsTo(Object);
+Picture.belongsTo(Object, {foreignKey: 'objectId'});
 
 module.exports = Picture;

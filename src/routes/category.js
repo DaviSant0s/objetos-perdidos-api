@@ -10,8 +10,6 @@ const {
 
 const {
   requiSignin,
-  verifyAdmin,
-  verifyUser,
 } = require('../middlewares/verifyAuthentication');
 
 const upload = require('../configs/multer');
@@ -20,7 +18,6 @@ const { validateCreateCategory } = require('../middlewares/validation/category')
 routes.post(
   '/category/create',
   requiSignin,
-  verifyAdmin,
   upload.single('categoryImage'),
   validateCreateCategory,
   createCategory

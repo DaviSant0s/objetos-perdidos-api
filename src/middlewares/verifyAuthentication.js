@@ -29,41 +29,8 @@ const requiSignin = (req, res, next) => {
     
         return next();
     });
-
-}
-
-// Verifica se é um usuário admin
-const verifyAdmin = (req, res, next) => {
-    const { role } = req.user;
-
-    if (role !== 'admin') {
-        return res.status(401).json({
-            error: "@authenticate/verifyAdmin",
-            message: "Admin access danied"
-        });
-    }
-
-    return next();
-
-}
-
-// verifica se é um usuário comum
-const verifyUser = (req, res, next) => {
-    const { role } = req.user;
-
-    if (role !== 'user') {
-        return res.status(401).json({
-            error: "@authenticate/verifyUser",
-            message: "User access danied"
-        });
-    }
-
-    return next();
-
 }
 
 module.exports = {
     requiSignin,
-    verifyAdmin,
-    verifyUser
 }
