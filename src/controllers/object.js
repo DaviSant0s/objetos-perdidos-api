@@ -1,5 +1,6 @@
 const Object = require('../model/object/object');
 const Picture = require('../model/object/picture');
+const User = require('../model/user');
 
 const createObject = async (req, res) => {
   const { name, description, category, location_of_loss, date_of_loss } =
@@ -81,6 +82,11 @@ const getObjects = async (req, res) => {
         {
           model: Picture,
           attributes: ['id', 'img'],
+        },
+
+        {
+          model: User,
+          attributes: ['firstName', 'lastName', 'email', 'contactNumber'],
         },
       ],
     });
