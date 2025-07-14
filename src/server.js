@@ -12,12 +12,10 @@ const conn = require('./database/conn');
 
 const authenticateRoutes = require('./routes/authenticate');
 const objectRoutes = require('./routes/object');
-const initialData = require('./routes/initialData');
 
 app.use(cors());
 app.use('/api', authenticateRoutes);
 app.use('/api', objectRoutes);
-app.use('/api', initialData);
 
 conn
   .sync()
